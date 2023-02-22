@@ -7,7 +7,7 @@ body,
   padding: 0;
   color: white;
   font-size: 10px;
-  background-color: #101124;
+  background-color: #000000;
 }
 
 body {
@@ -203,8 +203,8 @@ a.plain {
 }
 
 .default-btn {
-  background: #2d42fc;
-  border-radius: 4px;
+  background: linear-gradient(98.6deg, #5144EB 0%, #E252D9 100%);
+  border-radius: 100px;
   font-size: var(--font-sm);
   line-height: 2rem;
   font-weight: normal;

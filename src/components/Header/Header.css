@@ -8,15 +8,15 @@
 }
 
 .App-header.large {
-  height: 6.2rem;
+  height: 8rem;
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: space-between;
   position: relative;
   padding-left: 3.2rem;
   padding-right: 3.2rem;
-  background: transparent 0% 0% no-repeat padding-box;
-  border-bottom: 1px solid #ffffff10;
+  border-radius: 0 0 24px 24px;
+  background: linear-gradient(to right, #867EEB, #E78DE1) !important;
 }
 
 .App-header.large::after {
@@ -27,6 +27,16 @@
   position: absolute;
   bottom: -1.3rem;
   left: 0;
+}
+
+.App-header.large::before {
+  content: '';
+  top: 0; right: 0; bottom: 0; left: 0;
+  position: absolute;
+  z-index: -1;
+  margin:0 0 1px 0 !important;
+  border-radius: inherit !important;
+  background: #000;
 }
 
 .App-header.large .App-header-links {
@@ -84,7 +94,7 @@
 }
 
 .App-header-links-header {
-  height: 6.2rem;
+  height: 8rem;
   display: flex;
   align-items: center;
   z-index: 3;
@@ -132,8 +142,9 @@
 }
 
 .App-header-link-main img {
+  margin-left: 2rem;
   display: inline-block;
-  height: 2.15rem;
+  height: 4rem;
   vertical-align: middle;
 }
 
@@ -153,20 +164,20 @@
 .App-header a.active {
   pointer-events: none;
   opacity: 1;
-  color: #eee;
+  color: #DE38D4 !important;
 }
 
 .App-header .a:hover,
 .App-header a:hover {
   opacity: 1;
-  color: #eee;
+  color: #E78DE1 !important;
 }
 
 .App-header-container-left .a,
 .App-header-container-left a {
   padding: 1.8rem 1.7rem;
   display: block;
-  color: #a0a3c4;
+  color: #F2F2F5 !important;
   font-size: var(--font-base);
   line-height: 1.8rem;
   font-weight: normal;
@@ -174,7 +185,7 @@
 
 .App-header-container-left .a.active,
 .App-header-container-left a.active {
-  color: white;
+  color: #DE38D4 !important;
 }
 
 .App-header-container-right {
@@ -258,7 +269,8 @@
   }
 
   .App-header-link-main img {
-    height: 2.1rem;
+    margin-left: 0;
+    height: 4rem;
   }
 
   .App-header.large {
@@ -335,4 +347,22 @@
   .App-header-drawer {
     background: #0e0f1f;
   }
+}
+
+.App-header-link-container {
+  display: flex;
+}
+
+.App-header-trade-button {
+  display: flex;
+  align-items: center;
+}
+
+.App-header-trade-button a{
+  padding: 1rem 2rem !important;
+}
+
+.App-header-trade-button a.active,
+.App-header-trade-button a:active{
+  color: #F2F2F5 !important;
 }

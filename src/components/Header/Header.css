@@ -164,20 +164,20 @@
 .App-header a.active {
   pointer-events: none;
   opacity: 1;
-  color: #DE38D4 !important;
+  color: #DE38D4;
 }
 
 .App-header .a:hover,
 .App-header a:hover {
   opacity: 1;
-  color: #E78DE1 !important;
+  color: #E78DE1;
 }
 
 .App-header-container-left .a,
 .App-header-container-left a {
   padding: 1.8rem 1.7rem;
   display: block;
-  color: #F2F2F5 !important;
+  color: #F2F2F5;
   font-size: var(--font-base);
   line-height: 1.8rem;
   font-weight: normal;
@@ -186,6 +186,11 @@
 .App-header-container-left .a.active,
 .App-header-container-left a.active {
   color: #DE38D4 !important;
+}
+
+.App-header-container-left .a:hover,
+.App-header-container-left a.hover {
+  color: #E78DE1;
 }
 
 .App-header-container-right {
@@ -225,13 +230,12 @@
 }
 
 .App-header-user-address {
-  border: 1px solid #ffffff29;
   height: 3.6rem;
-  border-radius: 0.4rem;
   display: inline-flex;
   align-items: center;
   color: white;
   position: relative;
+  margin-right: 2rem;
 }
 
 @media (max-width: 1033px) {
@@ -302,6 +306,10 @@
   a.App-header-user-account {
     margin-right: 0;
   }
+
+  .roseon-points {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
@@ -356,6 +364,7 @@
 .App-header-trade-button {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .App-header-trade-button a{
@@ -365,4 +374,22 @@
 .App-header-trade-button a.active,
 .App-header-trade-button a:active{
   color: #F2F2F5 !important;
+}
+
+.roseon-points{
+  background: transparent;
+  border-radius: 100px;
+  min-height: 3.6rem;
+  display: flex;
+  color: #F2F2F5;
+  border: 1px solid #898989;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem 1.6rem;
+  margin-right: 2rem;
+}
+
+.roseon-points img{
+  height: 25px;
+  margin-right: 1rem;
 }

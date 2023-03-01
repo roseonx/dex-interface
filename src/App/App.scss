@@ -155,9 +155,7 @@
 .App-box-highlight,
 .App-box-solid {
   position: relative;
-  border: 1px solid #1e2136;
-  border-radius: 0.4rem;
-  background: #16182e;
+  background: transparent;
   font-size: var(--font-base);
 }
 
@@ -388,9 +386,7 @@ button.App-connect-wallet:hover {
 }
 
 .App-header-user-address {
-  border: 1px solid #ffffff29;
   height: 3.6rem;
-  border-radius: 0.4rem;
   display: inline-flex;
   align-items: center;
   color: white;
@@ -624,20 +620,20 @@ button.App-connect-wallet:hover {
 .App-header a.active {
   pointer-events: none;
   opacity: 1;
-  color: #eee;
+  color: #E78DE1;
 }
 
 .App-header .a:hover,
 .App-header a:hover {
   opacity: 1;
-  color: #eee;
+  color: #E78DE1;
 }
 
 .App-header-container-left .a,
 .App-header-container-left a {
   padding: 1.8rem 1.7rem;
   display: block;
-  color: #a0a3c4;
+  color: #F2F2F5;
   font-size: var(--font-base);
   line-height: 1.8rem;
   font-weight: normal;
@@ -1445,4 +1441,17 @@ button.App-button {
   to {
     transform: rotate(360deg);
   }
+}
+
+.alien-button {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  cursor: pointer;
+  background: transparent;
+}
+.alien-button img {
+  width: 285px;
+  height: 285px;
 }

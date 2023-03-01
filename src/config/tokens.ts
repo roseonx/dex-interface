@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getContract } from "./contracts";
-import { ARBITRUM, ARBITRUM_TESTNET, AVALANCHE, AVALANCHE_FUJI, MAINNET, TESTNET } from "./chains";
+import { ARBITRUM, ARBITRUM_TESTNET, AVALANCHE, AVALANCHE_FUJI, MAINNET, TESTNET, ARBITRUM_FAVORITE } from "./chains";
 import { Token } from "domain/tokens";
 
 export const TOKENS: { [chainId: number]: Token[] } = {
@@ -365,15 +365,49 @@ export const TOKENS: { [chainId: number]: Token[] } = {
   ],
 };
 
-export const ADDITIONAL_TOKENS: { [chainId: number]: Token[] } = {
+export const FAVORITE_TOKENS:{ [chainId: number]: Token[] } = {
+  [ARBITRUM_TESTNET]: [
+    {
+      name: "Bitcoin",
+      symbol: "BTC",
+      decimals: 8,
+      address: "0x27960f9A322BE96A1535E6c19B3958e80E6a2670",
+      isShortable: true,
+      imageUrl: "https://assets.coingecko.com/coins/images/7598/thumb/wrapped_bitcoin_wbtc.png?1548822744",
+    },
+    {
+      name: "Ethereum",
+      symbol: "ETH",
+      decimals: 18,
+      address: ethers.constants.AddressZero,
+      isNative: true,
+      isShortable: true,
+      imageUrl: "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+    },
+  ],
   [ARBITRUM]: [
     {
-      name: "GMX",
-      symbol: "GMX",
-      address: getContract(ARBITRUM, "GMX"),
-      decimals: 18,
-      imageUrl: "https://assets.coingecko.com/coins/images/18323/small/arbit.png?1631532468",
+      name: "Bitcoin (WBTC)",
+      symbol: "BTC",
+      decimals: 8,
+      address: "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f",
+      isShortable: true,
+      imageUrl: "https://assets.coingecko.com/coins/images/7598/thumb/wrapped_bitcoin_wbtc.png?1548822744",
     },
+    {
+      name: "Ethereum",
+      symbol: "ETH",
+      decimals: 18,
+      address: ethers.constants.AddressZero,
+      isNative: true,
+      isShortable: true,
+      imageUrl: "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+    },
+  ],
+}
+
+export const ADDITIONAL_TOKENS: { [chainId: number]: Token[] } = {
+  [ARBITRUM]: [
     {
       name: "Escrowed GMX",
       symbol: "esGMX",
@@ -616,6 +650,10 @@ export function getTokens(chainId: number) {
   return TOKENS[chainId];
 }
 
+export function getFavoriteTokens(chainId: number) {
+  return FAVORITE_TOKENS[chainId];
+}
+
 export function isValidToken(chainId: number, address: string) {
   if (!TOKENS_MAP[chainId]) {
     throw new Error(`Incorrect chainId ${chainId}`);
@@ -659,7 +697,8 @@ export function getNormalizedTokenSymbol(tokenSymbol) {
 }
 
 const AVAILABLE_CHART_TOKENS = {
-  [ARBITRUM]: ["ETH", "BTC", "LINK", "UNI"],
+  // [ARBITRUM]: ["ETH", "BTC", "LINK", "UNI"],
+  [ARBITRUM]: ["ETH", "BTC"],
   [AVALANCHE]: ["AVAX", "ETH", "BTC"],
 };
 

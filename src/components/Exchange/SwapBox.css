@@ -1,3 +1,79 @@
 .SwapBox-collateral-tooltip-text {
   font-weight: normal;
 }
+
+.Exchange-swap-option-tabs {
+  background: #23E2A0 !important;
+  border-radius: 100px !important;
+  padding: 1rem;
+}
+
+.Exchange-swap-option-tabs .Tab-option {
+  font-size: 2rem;
+  border-radius: 100px;
+  background: #000000;
+  color: #898989;
+  width: 90%;
+  justify-self: center;
+  padding: 0.8rem !important;
+}
+.Exchange-swap-option-tabs .Tab-option.active {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+.Exchange-swap-option-tabs .Tab-option.muted {
+  opacity: 1;
+}
+
+.Exchange-swap-option-tabs .Tab-option .Tab-option-icon {
+  opacity: 1;
+  width: 32px;
+  height: 32px;
+}
+
+.Exchange-swap-order-container {
+  background: #141414;
+  border-radius: 24px;
+  padding: 0.5rem 1.5rem;
+}
+
+.Exchange-swap-order-container .Exchange-swap-order-type-tabs {
+  border-radius: 100px;
+  border: 1px solid #FFFFFF;
+  padding: 2px;
+  display: inline-block;
+}
+
+.Exchange-swap-order-container .Exchange-swap-order-type-tabs .Tab-option {
+  margin: 0 2rem;
+}
+
+.Exchange-swap-order-container .Exchange-swap-order-type-tabs .Tab-option.active {
+  color: #000000;
+  background: #FFFFFF;
+  padding: 0.75rem;
+  border-radius: 100px;
+  margin: 0;
+}
+
+.Exchange-swap-section-wrapper {
+  padding: 1px;
+  border-radius: 2.5rem;
+  background: linear-gradient(to left, #867EEB, #E78DE1);
+  margin-bottom: 1rem;
+}
+
+.Exchange-leverage-box .Checkbox .Checkbox-icon {
+  color: #23E2A0;
+}
+
+.Exchange-leverage-slider .rc-slider .rc-slider-step .rc-slider-dot-active,
+.Exchange-leverage-slider .rc-slider .rc-slider-track {
+  background-color: #23E2A0;
+  background-image: none;
+}
+
+.Exchange-leverage-slider .rc-slider .rc-slider-handle {
+  border-color: #23E2A0;
+}

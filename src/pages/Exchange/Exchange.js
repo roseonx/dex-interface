@@ -49,10 +49,13 @@ import { useLocalStorageByChainId, useLocalStorageSerializeKey } from "lib/local
 import { helperToast } from "lib/helperToast";
 import { getTokenInfo } from "domain/tokens/utils";
 import { bigNumberify, formatAmount } from "lib/numbers";
-import { getToken, getTokenBySymbol, getTokens, getWhitelistedTokens } from "config/tokens";
+import {getFavoriteTokens, getToken, getTokenBySymbol, getTokens, getWhitelistedTokens} from "config/tokens";
 import { useChainId } from "lib/chains";
 import ExternalLink from "components/ExternalLink/ExternalLink";
 import UsefulLinks from "components/Exchange/UsefulLinks";
+import favoriteTokenImage from "img/favorite-icon.png";
+import greenBlur from "img/grenn-blur.png";
+import pinkBlur from "img/pink-blur.png";
 const { AddressZero } = ethers.constants;
 
 const PENDING_POSITION_VALID_DURATION = 600 * 1000;
@@ -360,6 +363,9 @@ export const Exchange = forwardRef((props, ref) => {
 
   const [pendingPositions, setPendingPositions] = useState({});
   const [updatedPositions, setUpdatedPositions] = useState({});
+  const [favoriteTokensData, setFavoriteTokensData] = useState([]);
+  const [ethPrice, setEthPrice] = useState(0)
+  const [btcPrice, setBtcPrice] = useState(0);
 
   const hideBanner = () => {
     const hiddenLimit = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000);
@@ -518,7 +524,20 @@ export const Exchange = forwardRef((props, ref) => {
     active,
     chainId,
     infoTokens
-  );
+  )
+
+  useEffect(() => {
+    const data = getFavoriteTokens(chainId)
+      .map((token) => token.address)
+      .map((address) => {
+        const tokenInfo = getTokenInfo(infoTokens, address);
+        const price = formatAmount(tokenInfo.maxPrice,USD_DECIMALS,2,true);
+        return {symbol:tokenInfo.symbol,price};
+    });
+    // setFavoriteTokensData(data);
+    setEthPrice(data[1].price);
+    setBtcPrice(data[0].price);
+  },[infoTokens,chainId]);
 
   useEffect(() => {
     const fromToken = getTokenInfo(infoTokens, fromTokenAddress);
@@ -775,14 +794,16 @@ export const Exchange = forwardRef((props, ref) => {
   };
   const POSITIONS = "Positions";
   const ORDERS = "Orders";
-  const TRADES = "Trades";
+  const TRADES = "Trade";
+  const INFO = "Info";
 
-  const LIST_SECTIONS = [POSITIONS, flagOrdersEnabled && ORDERS, TRADES].filter(Boolean);
+  const LIST_SECTIONS = [POSITIONS, flagOrdersEnabled && ORDERS, TRADES,INFO].filter(Boolean);
   let [listSection, setListSection] = useLocalStorageByChainId(chainId, "List-section-v2", LIST_SECTIONS[0]);
   const LIST_SECTIONS_LABELS = {
     [ORDERS]: orders.length ? t`Orders (${orders.length})` : t`Orders`,
     [POSITIONS]: positions.length ? t`Positions (${positions.length})` : t`Positions`,
     [TRADES]: t`Trades`,
+    [INFO]: t`Info`,
   };
   if (!LIST_SECTIONS.includes(listSection)) {
     listSection = LIST_SECTIONS[0];
@@ -922,11 +943,35 @@ export const Exchange = forwardRef((props, ref) => {
     );
   };
 
+  const renderFavoriteToken = () => {
+    return (
+      <>
+        {favoriteTokensData.current.map(({ symbol,price }) => (
+          <div key={symbol} className="favorite-tokens-container">
+            <span>{symbol}</span>/<span>USD</span><span className="favorite-tokens-price">{price}</span>
+          </div>
+        ))}
+      </>
+    );
+  }
+
   return (
     <div className="Exchange page-layout">
+      <img src={greenBlur} alt={greenBlur} className={"blur-image green-blur"}/>
+      <img src={pinkBlur} alt={pinkBlur} className={"blur-image pink-blur"}/>
       {showBanner && <ExchangeBanner hideBanner={hideBanner} />}
       <div className="Exchange-content">
         <div className="Exchange-left">
+          <div className="favorite-tokens">
+            <img className="favorite-tokens-image" src={favoriteTokenImage} alt="favoriteTokenImage"/>
+            {/*{renderFavoriteToken()}*/}
+            <div key="BTC" className="favorite-tokens-container">
+              <span>BTC</span>/<span>USD</span><span className="favorite-tokens-price">{btcPrice}</span>
+            </div>
+            <div key="ETH" className="favorite-tokens-container">
+              <span>ETH</span>/<span>USD</span><span className="favorite-tokens-price">{ethPrice}</span>
+            </div>
+          </div>
           {renderChart()}
           <div className="Exchange-lists large">{getListSection()}</div>
         </div>

@@ -16,6 +16,7 @@ import { switchNetwork } from "lib/wallets";
 import { useChainId } from "lib/chains";
 import { isDevelopment } from "config/env";
 import { getIcon } from "config/icons";
+import logoSmallImg from "img/logo_GMX_small.svg";
 
 type Props = {
   openSettings: () => void;
@@ -33,12 +34,12 @@ const NETWORK_OPTIONS = [
     icon: getIcon(ARBITRUM, "network"),
     color: "#264f79",
   },
-  {
-    label: getChainName(AVALANCHE),
-    value: AVALANCHE,
-    icon: getIcon(AVALANCHE, "network"),
-    color: "#E841424D",
-  },
+  // {
+  //   label: getChainName(AVALANCHE),
+  //   value: AVALANCHE,
+  //   icon: getIcon(AVALANCHE, "network"),
+  //   color: "#E841424D",
+  // },
 ];
 
 if (isDevelopment()) {
@@ -48,12 +49,12 @@ if (isDevelopment()) {
     icon: getIcon(ARBITRUM_TESTNET, "network"),
     color: "#264f79",
   });
-  NETWORK_OPTIONS.push({
-    label: getChainName(AVALANCHE_FUJI),
-    value: AVALANCHE_FUJI,
-    icon: getIcon(AVALANCHE_FUJI, "network"),
-    color: "#E841424D",
-  });
+  // NETWORK_OPTIONS.push({
+  //   label: getChainName(AVALANCHE_FUJI),
+  //   value: AVALANCHE_FUJI,
+  //   icon: getIcon(AVALANCHE_FUJI, "network"),
+  //   color: "#E841424D",
+  // });
 }
 
 export function AppHeaderUser({
@@ -103,9 +104,12 @@ export function AppHeaderUser({
         )}
         {showConnectionOptions ? (
           <>
-            <ConnectWalletButton onClick={() => setWalletModalVisible(true)} imgSrc={connectWalletImg}>
-              {small ? <Trans>Connect</Trans> : <Trans>Connect Wallet</Trans>}
-            </ConnectWalletButton>
+            {!small && (
+              <div className="roseon-points">
+                <img src={logoSmallImg} className="small" alt="ROSX Logo" />
+                <span>--     </span>
+              </div>
+            )}
             <NetworkDropdown
               small={small}
               networkOptions={NETWORK_OPTIONS}
@@ -113,6 +117,9 @@ export function AppHeaderUser({
               onNetworkSelect={onNetworkSelect}
               openSettings={openSettings}
             />
+            <ConnectWalletButton onClick={() => setWalletModalVisible(true)} imgSrc={connectWalletImg}>
+              {small ? <Trans>Connect</Trans> : <Trans>Connect Wallet</Trans>}
+            </ConnectWalletButton>
           </>
         ) : (
           <LanguagePopupHome />
@@ -139,6 +146,12 @@ export function AppHeaderUser({
       )}
       {showConnectionOptions ? (
         <>
+          {!small && (
+            <div className="roseon-points">
+              <img src={logoSmallImg} className="small" alt="ROSX Logo" />
+              <span>--     </span>
+            </div>
+          )}
           <div className="App-header-user-address">
             <AddressDropdown
               account={account}

@@ -3,7 +3,7 @@ import { Menu } from "@headlessui/react";
 import ModalWithPortal from "../Modal/ModalWithPortal";
 import { t, Trans } from "@lingui/macro";
 import cx from "classnames";
-import { HiDotsVertical } from "react-icons/hi";
+import { RiArrowDownSLine } from "react-icons/ri";
 import "./NetworkDropdown.css";
 import language24Icon from "img/ic_language24.svg";
 import settingsIcon from "img/ic_settings_16.svg";
@@ -83,15 +83,15 @@ export default function NetworkDropdown(props) {
 function NavIcons({ selectorLabel }) {
   const { chainId } = useChainId();
   const icon = getIcon(chainId, "network");
-
   return (
     <>
       <button className="transparent">
         <img className="network-dropdown-icon" src={icon} alt={selectorLabel} />
+        <span className="network-dropdown-selector-label">{selectorLabel}</span>
       </button>
       <div className="network-dropdown-seperator" />
       <button className="transparent">
-        <HiDotsVertical color="white" size={20} />
+        <RiArrowDownSLine color="white" size={24} />
       </button>
     </>
   );

@@ -96,8 +96,8 @@ export function Header({
         <div className="App-header large">
           <div className="App-header-container-left">
             <Link className="App-header-link-main" to="/">
-              <img src={logoImg} className="big" alt="ROSNX Logo" />
-              <img src={logoSmallImg} className="small" alt="ROSNX Logo" />
+              <img src={logoImg} className="big" alt="ROSX Logo" />
+              <img src={logoSmallImg} className="small" alt="ROSX Logo" />
             </Link>
             {isHomeSite() ? (
               <HomeHeaderLinks redirectPopupTimestamp={redirectPopupTimestamp} showRedirectModal={showRedirectModal} />

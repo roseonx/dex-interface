@@ -12,7 +12,7 @@
 
 .Exchange-list-tab-container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 38rem auto;
   padding-left: 0.8rem;
   padding-right: 0.8rem;
   margin-top: 1.5rem;
@@ -62,6 +62,7 @@
 
 .Exchange-lists.large {
   display: block;
+  margin-top: 2rem;
 }
 
 .Exchange-lists.small {
@@ -311,6 +312,7 @@
   right: 0;
   top: 6.975rem;
   z-index: 1;
+  /*background-image: url('img/chart-border.png') ;*/
 }
 .ExchangeChart-bottom-controls {
   display: inline-block;
@@ -320,12 +322,12 @@
   padding: 0.8rem 0;
 }
 .ExchangeChart.tv .ExchangeChart-bottom-header {
-  position: absolute;
+  position: static;
   display: flex;
   top: 1.5rem;
   left: 1.5rem;
   right: 1.5rem;
-  z-index: 5;
+  z-index: -1;
 }
 .ExchangeChart.tv .ExchangeChart-bottom-stats {
   font-size: var(--font-sm);
@@ -650,12 +652,21 @@ table.Exchange-list th {
   margin-bottom: 1.05rem;
 }
 
-.Exchange-swap-section {
+.Exchange-swap-order-container .Exchange-swap-section {
   padding: 1.5rem;
-  margin-bottom: 1.05rem;
-  border-radius: 0.3rem;
-  background: linear-gradient(90deg, rgba(30, 34, 61, 0.9) 0%, rgba(38, 43, 71, 0.9) 100%);
-  box-shadow: inset 0px 0px 3rem 0.5rem rgba(255, 255, 255, 0.01);
+  border-radius: 2.5rem;
+  position: relative;
+  background: #000;
+}
+
+.Exchange-swap-order-container .Exchange-swap-section::before {
+  content: '';
+  top: 0; right: 0; bottom: 0; left: 0;
+  position: absolute;
+  margin: -20px;
+  z-index: -1;
+  border-radius: inherit !important;
+  background: linear-gradient(to left, #867EEB, #E78DE1) !important;
 }
 
 .Exchange-swap-option-tabs.Tab.block .Tab-option {
@@ -663,7 +674,7 @@ table.Exchange-list th {
 }
 
 .Exchange-swap-order-type-tabs {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .Exchange-swap-option-tabs.Tab.block .Tab-option-icon {
@@ -702,19 +713,18 @@ table.Exchange-list th {
   right: 1.25rem;
   top: 0;
   padding: 0.465rem 0.8rem;
-  color: #fff;
-  outline: 1rem solid rgba(33, 37, 64, 1);
-  border-radius: 3px;
+  color: #000;
+  border-radius: 100px;
   z-index: 1;
   cursor: pointer;
   font-size: var(--font-sm);
-  background: linear-gradient(90deg, rgba(45, 66, 252, 1) 0%, rgba(46, 61, 205, 1) 100%);
+  background: #fff;
 }
 
-.Exchange-swap-max:hover {
-  color: rgba(255, 255, 255, 1);
-  background: linear-gradient(90deg, rgba(58, 78, 252, 1) 0%, rgba(51, 68, 222, 1) 100%);
-}
+/*.Exchange-swap-max:hover {*/
+/*  color: rgba(255, 255, 255, 1);*/
+/*  background: linear-gradient(90deg, rgba(58, 78, 252, 1) 0%, rgba(51, 68, 222, 1) 100%);*/
+/*}*/
 
 .Exchange-swap-section-bottom .TokenSelector-box {
   font-size: 2.1rem;
@@ -743,6 +753,9 @@ input.Exchange-swap-input.small {
 .Exchange-swap-button {
   display: block;
   width: 100%;
+  background: linear-gradient(98.6deg, #5144EB 0%, #E252D9 100%) !important;
+  border-radius: 100px !important;
+  color: #fff !important;
 }
 
 .Exchange-swap-ball-container {
@@ -768,14 +781,17 @@ input.Exchange-swap-input.small {
   border-radius: 3.1rem;
   cursor: pointer;
   user-select: none;
-  background: linear-gradient(90deg, rgba(45, 66, 252, 1) 0%, rgba(46, 61, 205, 1) 100%);
+  background: linear-gradient(98.6deg, #B2ACFB 0%, #F8A9F2 100%);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08), 0px 20px 32px rgba(0, 0, 0, 0.24);
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #000000;
 }
 
 .Exchange-swap-ball:hover {
-  background: linear-gradient(90deg, rgba(58, 78, 252, 1) 0%, rgba(51, 68, 222, 1) 100%);
+  background: linear-gradient(98.6deg, #B2ACFB 0%, #F8A9F2 100%);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08), 0px 20px 32px rgba(0, 0, 0, 0.24);
 }
 
 .Exchange-swap-ball:hover .Exchange-swap-ball-icon {
@@ -916,6 +932,34 @@ table.Exchange-list-small td {
 
 .Position-leverage {
   margin-right: 0.25rem;
+}
+
+.favorite-tokens {
+  width: 100%;
+  overflow: auto;
+}
+
+.favorite-tokens img {
+  width: 40px;
+  float: left;
+}
+
+.favorite-tokens img {
+  width: 40px;
+  float: left;
+}
+
+.favorite-tokens-container {
+  float: left;
+  border: 1px solid #FFFFFF;
+  padding: 1rem;
+  margin-left: 1rem;
+  border-radius: 100px;
+}
+
+.favorite-tokens-price {
+  margin-left: 1rem;
+  color: #23E2A0;
 }
 
 @media (max-width: 1500px) {
@@ -1088,4 +1132,36 @@ table.Exchange-list-small td {
   .chart-positions {
     display: none;
   }
+}
+
+.Exchange-list-tabs {
+  border: 1px solid #FFFFFF;
+  border-radius: 100px;
+  padding: 0.2rem;
+}
+
+.blur-image {
+  position: absolute;
+}
+
+.green-blur {
+  left: 50%;
+  top: -4.65rem;
+}
+
+.pink-blur {
+  left: -0.1rem;
+}
+
+.Exchange-list-tabs .Tab-option {
+  margin-right: 4rem !important;
+  margin-left: 1rem;
+}
+
+.Exchange-list-tabs .Tab-option.active {
+  background-color: #FFFFFF;
+  color: #000000;
+  border-radius: 100px;
+  padding: 0.8rem;
+  margin-left: 0!important;
 }

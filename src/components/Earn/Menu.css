@@ -1,0 +1,59 @@
+.Earn-left-menu-base {
+  width: 3px !important;
+  height: 70vh;
+  margin: 7.3rem auto !important;
+  display: block;
+}
+
+.Earn-left-menu-item {
+  position: absolute;
+  text-align: center;
+  width: 15%;
+  max-width: 20rem;
+}
+
+.Earn-left-menu-item img {
+  width: 15rem;
+  display: block;
+  position: absolute;
+  margin-left: 2.5rem;
+}
+
+.Earn-left-menu-content {
+  margin-top: 5rem;
+}
+
+.Earn-left-menu-content-active {
+  margin-top: 5rem;
+}
+
+.Earn-left-menu-content-active span{
+  text-align: center;
+  background: #FFFFFF;
+  padding: 1rem;
+  border: 1px #000000 solid;
+  border-radius: 100px;
+  color: #000000;
+  z-index: 1;
+  position: relative;
+}
+
+.Earn-left-menu-content span{
+  text-align: center;
+  background: #000000;
+  padding: 1rem;
+  border: 1px #FFFFFF solid;
+  border-radius: 100px;
+  color: #FFFFFF;
+  z-index: 1;
+  position: relative;
+}
+
+.Earn-left-menu-item.mid {
+  margin-top: 25rem;
+}
+
+.Earn-left-menu-item.bottom {
+  margin-top: 50rem;
+}
+

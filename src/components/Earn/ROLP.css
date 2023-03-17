@@ -1,0 +1,29 @@
+.ROLP-content {
+  margin: 0 2rem;
+}
+
+.ROLP-swap-contents {
+  width: 50rem;
+}
+
+.ROLP-swap-selection {
+
+}
+
+.ROLP-swap-tabs {
+  overflow: auto;
+  padding: 2rem;
+  background: linear-gradient(98.6deg, #867EEB 0%, #E78DE1 100%);
+  border-radius: 100px;
+}
+
+.ROLP-content .ROLP-swap-contents .ROLP-swap-tabs .ROLP-swap-tab {
+  padding: 1rem;
+  background: #FFFFFF;
+  color: #000000;
+  border-color: #000000;
+  border-radius: 100px;
+  float: left;
+  font-size: 2rem;
+  margin: 0 1rem;
+}

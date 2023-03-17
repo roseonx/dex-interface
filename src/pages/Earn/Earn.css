@@ -1,0 +1,24 @@
+.Earn {
+  max-width: 155rem;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.Earn-layout {
+  overflow: auto;
+}
+
+.Earn-left-menu {
+  align-items: center;
+  margin: auto;
+  width: 15%;
+  max-width: 20rem;
+  justify-content: space-between;
+  float: left;
+  display: block;
+}
+.Earn-right-content {
+  width: 85%;
+  max-width: 135rem;
+  float: left;
+}

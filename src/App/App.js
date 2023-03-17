@@ -99,6 +99,8 @@ import { useChainId } from "lib/chains";
 import ExternalLink from "components/ExternalLink/ExternalLink";
 import { isDevelopment } from "config/env";
 import alienBlur from "img/alien-blur.png";
+import Earn from "../pages/Earn/Earn";
+import Vest from "../pages/Vest/Vest";
 
 if ("ethereum" in window) {
   window.ethereum.autoRefreshOnNetworkChange = false;
@@ -487,7 +489,11 @@ function FullApp() {
                 <Dashboard />
               </Route>
               <Route exact path="/earn">
-                <Stake setPendingTxns={setPendingTxns} connectWallet={connectWallet} />
+                {/*<Stake setPendingTxns={setPendingTxns} connectWallet={connectWallet} />*/}
+                <Earn setPendingTxns={setPendingTxns} connectWallet={connectWallet} />
+              </Route>
+              <Route exact path="/vest">
+                <Vest setPendingTxns={setPendingTxns} connectWallet={connectWallet} />
               </Route>
               <Route exact path="/buy">
                 <Buy

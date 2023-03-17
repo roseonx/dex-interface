@@ -1,0 +1,17 @@
+.VestClaim {
+  width: 100%;
+  margin-top: 8rem;
+  padding: 2rem;
+}
+
+.VestClaim .VestClaim-header {
+  overflow: auto;
+}
+
+.VestClaim .VestClaim-header img{
+  float: left;
+}
+
+.VestClaim .VestClaim-header .VestClaim-title{
+  float: left;
+}

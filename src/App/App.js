@@ -101,8 +101,9 @@ import { isDevelopment } from "config/env";
 import alienBlur from "img/alien-blur.png";
 import Earn from "../pages/Earn/Earn";
 import Vest from "../pages/Vest/Vest";
+import Button from "components/Button/Button";
 
-if ("ethereum" in window) {
+if (window?.ethereum?.autoRefreshOnNetworkChange) {
   window.ethereum.autoRefreshOnNetworkChange = false;
 }
 
@@ -647,9 +648,9 @@ function FullApp() {
           </div>
         )}
 
-        <button className="App-cta Exchange-swap-button" onClick={saveAndCloseSettings}>
+        <Button variant="primary-action" className="w-100 mt-md" onClick={saveAndCloseSettings}>
           <Trans>Save</Trans>
-        </button>
+        </Button>
       </Modal>
     </>
   );

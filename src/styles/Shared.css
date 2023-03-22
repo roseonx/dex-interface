@@ -52,7 +52,7 @@ input {
 
 :root {
   --dark-blue: #17182c;
-  --dark-blue-bg: #16182e;
+  --dark-blue-bg: #000000;
   --dark-blue-accent: #a0a3c4;
   --primary-btn-bg: #2d42fc;
   --primary-btn-hover: #4f60fc;
@@ -445,4 +445,13 @@ button.btn-link:hover .logout-icon {
 
 .gap-right > *:not(:last-child) {
   margin-right: 1rem;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.overflow-auto {
+  overflow: auto;
 }

@@ -39,22 +39,16 @@
 }
 
 .Exchange-swap-order-container .Exchange-swap-order-type-tabs {
-  border-radius: 100px;
-  border: 1px solid #FFFFFF;
-  padding: 2px;
   display: inline-block;
+  border-bottom: 1px solid #212121;
 }
 
 .Exchange-swap-order-container .Exchange-swap-order-type-tabs .Tab-option {
-  margin: 0 2rem;
+  padding:0 2rem;
 }
 
 .Exchange-swap-order-container .Exchange-swap-order-type-tabs .Tab-option.active {
-  color: #000000;
-  background: #FFFFFF;
-  padding: 0.75rem;
-  border-radius: 100px;
-  margin: 0;
+  border-bottom: 1px solid rebeccapurple;
 }
 
 .Exchange-swap-section-wrapper {

@@ -40,7 +40,7 @@ import {
   USD_DECIMALS,
   USDG_ADDRESS,
   USDG_DECIMALS,
-  MAX_ALLOWED_LEVERAGE,
+  MAX_ALLOWED_LEVERAGE, STOP_MARKET, STOP_LIMIT,
 } from "lib/legacy";
 import { ARBITRUM, getChainName, getConstant, IS_NETWORK_DISABLED, isSupportedChain } from "config/chains";
 import * as Api from "domain/legacy";
@@ -58,8 +58,8 @@ import Router from "abis/Router.json";
 import Token from "abis/Token.json";
 import WETH from "abis/WETH.json";
 
-import longImg from "img/long.svg";
-import shortImg from "img/short.svg";
+import longImg from "img/sun-flower.png";
+import shortImg from "img/orchid.png";
 import swapImg from "img/swap.svg";
 
 import { useUserReferralCode } from "domain/referrals";
@@ -233,7 +233,7 @@ export default function SwapBox(props) {
 
   const isMarketOrder = orderOption === MARKET;
   const orderOptions = isSwap ? SWAP_ORDER_OPTIONS : LEVERAGE_ORDER_OPTIONS;
-  const orderOptionLabels = { [STOP]: t`Trigger`, [MARKET]: t`Market`, [LIMIT]: t`Limit` };
+  const orderOptionLabels = { [MARKET]: t`Market`,[STOP_MARKET]: t`Stop Market`, [LIMIT]: t`Limit`,[STOP_LIMIT]: t`Stop Limit`};
 
   const [triggerPriceValue, setTriggerPriceValue] = useState("");
   const triggerPriceUsd = isMarketOrder ? 0 : parseValue(triggerPriceValue, USD_DECIMALS);
@@ -1705,7 +1705,7 @@ export default function SwapBox(props) {
     setIsHigherSlippageAllowed(false);
   };
 
-  const isStopOrder = orderOption === STOP;
+  const isStopOrder = orderOption === STOP || orderOption === STOP_MARKET || orderOption === STOP_LIMIT;
   const showFromAndToSection = !isStopOrder;
   const showTriggerPriceSection = !isSwap && !isMarketOrder && !isStopOrder;
   const showTriggerRatioSection = isSwap && !isMarketOrder && !isStopOrder;
@@ -1829,7 +1829,7 @@ export default function SwapBox(props) {
         <Tooltip
           isHandlerDisabled
           handle={
-            <Button variant="primary-action" className="w-100" onClick={onClickPrimary} disabled={!isPrimaryEnabled()}>
+            <Button variant="primary-action" className="w-100 default-btn" onClick={onClickPrimary} disabled={!isPrimaryEnabled()}>
               {primaryTextMessage}
             </Button>
           }
@@ -1840,7 +1840,7 @@ export default function SwapBox(props) {
       );
     }
     return (
-      <Button variant="primary-action" className="w-100" onClick={onClickPrimary} disabled={!isPrimaryEnabled()}>
+      <Button variant="primary-action" className="w-100 default-btn" onClick={onClickPrimary} disabled={!isPrimaryEnabled()}>
         {primaryTextMessage}
       </Button>
     );
@@ -1853,15 +1853,15 @@ export default function SwapBox(props) {
         </div>}
       </div> */}
       <div className="Exchange-swap-box-inner App-box-highlight">
-        <div>
-          <Tab
-            icons={SWAP_ICONS}
-            options={SWAP_OPTIONS}
-            optionLabels={SWAP_LABELS}
-            option={swapOption}
-            onChange={onSwapOptionChange}
-            className="Exchange-swap-option-tabs"
-          />
+        <Tab
+          icons={SWAP_ICONS}
+          options={SWAP_OPTIONS}
+          optionLabels={SWAP_LABELS}
+          option={swapOption}
+          onChange={onSwapOptionChange}
+          className="Exchange-swap-option-tabs"
+        />
+        <div className="Exchange-swap-order-container">
           {flagOrdersEnabled && (
             <Tab
               options={orderOptions}
@@ -1872,7 +1872,6 @@ export default function SwapBox(props) {
               onChange={onOrderOptionChange}
             />
           )}
-        </div>
         {showFromAndToSection && (
           <React.Fragment>
             <div className="Exchange-swap-section">
@@ -2439,6 +2438,7 @@ export default function SwapBox(props) {
           )}
         </div>
       )}
+      </div>
       <UsefulLinks className="Useful-links-swapbox" />
       <NoLiquidityErrorModal
         chainId={chainId}

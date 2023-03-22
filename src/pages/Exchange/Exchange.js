@@ -929,17 +929,19 @@ export const Exchange = forwardRef((props, ref) => {
 
   const renderChart = () => {
     return (
-      <ExchangeTVChart
-        fromTokenAddress={fromTokenAddress}
-        toTokenAddress={toTokenAddress}
-        infoTokens={infoTokens}
-        swapOption={swapOption}
-        chainId={chainId}
-        positions={positions}
-        savedShouldShowPositionLines={savedShouldShowPositionLines}
-        orders={orders}
-        setToTokenAddress={setToTokenAddress}
-      />
+      <div className={"ExchangeTVChart-wrapper"}>
+        <ExchangeTVChart
+          fromTokenAddress={fromTokenAddress}
+          toTokenAddress={toTokenAddress}
+          infoTokens={infoTokens}
+          swapOption={swapOption}
+          chainId={chainId}
+          positions={positions}
+          savedShouldShowPositionLines={savedShouldShowPositionLines}
+          orders={orders}
+          setToTokenAddress={setToTokenAddress}
+        />
+      </div>
     );
   };
 

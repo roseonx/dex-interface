@@ -52,9 +52,9 @@ import { bigNumberify, formatAmount } from "lib/numbers";
 import {getFavoriteTokens, getToken, getTokenBySymbol, getTokens, getWhitelistedTokens} from "config/tokens";
 import { useChainId } from "lib/chains";
 import ExternalLink from "components/ExternalLink/ExternalLink";
-import UsefulLinks from "components/Exchange/UsefulLinks";
 import favoriteTokenImage from "img/favorite-icon.png";
-import greenBlur from "img/grenn-blur.png";
+import greenBlur from "img/green_blur.png";
+import redBlur from "img/red_blur.png";
 import pinkBlur from "img/pink-blur.png";
 const { AddressZero } = ethers.constants;
 
@@ -428,7 +428,7 @@ export const Exchange = forwardRef((props, ref) => {
   );
   const [swapOption, setSwapOption] = useLocalStorageByChainId(chainId, "Swap-option-v2", LONG);
 
-  const fromTokenAddress = tokenSelection[swapOption].from;
+  const fromTokenAddress = getTokenBySymbol(chainId,"USDC").address;
   const toTokenAddress = tokenSelection[swapOption].to;
 
   const setFromTokenAddress = useCallback(
@@ -945,28 +945,16 @@ export const Exchange = forwardRef((props, ref) => {
     );
   };
 
-  const renderFavoriteToken = () => {
-    return (
-      <>
-        {favoriteTokensData.current.map(({ symbol,price }) => (
-          <div key={symbol} className="favorite-tokens-container">
-            <span>{symbol}</span>/<span>USD</span><span className="favorite-tokens-price">{price}</span>
-          </div>
-        ))}
-      </>
-    );
-  }
-
   return (
     <div className="Exchange page-layout">
-      <img src={greenBlur} alt={greenBlur} className={"blur-image green-blur"}/>
+      {swapOption === LONG && <img src={greenBlur} alt={greenBlur} className={"blur-image green-blur"}/>}
+      {swapOption === SHORT && <img src={redBlur} alt={redBlur} className={"blur-image green-blur"}/>}
       <img src={pinkBlur} alt={pinkBlur} className={"blur-image pink-blur"}/>
       {showBanner && <ExchangeBanner hideBanner={hideBanner} />}
       <div className="Exchange-content">
         <div className="Exchange-left">
           <div className="favorite-tokens">
             <img className="favorite-tokens-image" src={favoriteTokenImage} alt="favoriteTokenImage"/>
-            {/*{renderFavoriteToken()}*/}
             <div key="BTC" className="favorite-tokens-container">
               <span>BTC</span>/<span>USD</span><span className="favorite-tokens-price">{btcPrice}</span>
             </div>
@@ -1032,9 +1020,8 @@ export const Exchange = forwardRef((props, ref) => {
           </div>
         </div>
         <div className="Exchange-lists small">{getListSection()}</div>
-        <UsefulLinks className="Useful-links-exchange" />
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </div>
   );
 });

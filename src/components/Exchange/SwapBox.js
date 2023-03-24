@@ -81,7 +81,8 @@ import { getToken, getTokenBySymbol, getTokens, getWhitelistedTokens } from "con
 import ExternalLink from "components/ExternalLink/ExternalLink";
 import { ErrorCode, ErrorDisplayType } from "./constants";
 import Button from "components/Button/Button";
-import UsefulLinks from "./UsefulLinks";
+import ChartTokenSelector from "./ChartTokenSelector";
+import {getChartToken} from "./ExchangeTVChart";
 
 const SWAP_ICONS = {
   [LONG]: longImg,
@@ -180,6 +181,7 @@ export default function SwapBox(props) {
   const [modalError, setModalError] = useState(false);
   const [isHigherSlippageAllowed, setIsHigherSlippageAllowed] = useState(false);
   const { attachedOnChain, userReferralCode } = useUserReferralCode(library, chainId, account);
+  const [chartToken, setChartToken] = useState({ maxPrice: null, minPrice: null});
 
   let allowedSlippage = savedSlippageAmount;
   if (isHigherSlippageAllowed) {
@@ -322,38 +324,15 @@ export default function SwapBox(props) {
   const fromTokenInfo = getTokenInfo(infoTokens, fromTokenAddress);
   const toTokenInfo = getTokenInfo(infoTokens, toTokenAddress);
 
-  const renderAvailableLongLiquidity = () => {
-    if (!isLong) {
-      return null;
-    }
+  useEffect(() => {
+    const tmp = getChartToken(swapOption, fromToken, toToken, chainId);
+    setChartToken(tmp);
+  }, [swapOption, fromToken, toToken, chainId]);
 
-    return (
-      <div className="Exchange-info-row">
-        <div className="Exchange-info-label">
-          <Trans>Available Liquidity</Trans>
-        </div>
-        <div className="align-right">
-          <Tooltip
-            handle={`$${formatAmount(toTokenInfo.maxAvailableLong, USD_DECIMALS, 2, true)}`}
-            position="right-bottom"
-            renderContent={() => {
-              return (
-                <>
-                  <StatsTooltipRow
-                    label={t`Max ${toTokenInfo.symbol} long capacity`}
-                    value={formatAmount(toTokenInfo.maxLongCapacity, USD_DECIMALS, 0, true)}
-                  />
-                  <StatsTooltipRow
-                    label={t`Current ${toTokenInfo.symbol} long`}
-                    value={formatAmount(toTokenInfo.guaranteedUsd, USD_DECIMALS, 0, true)}
-                  />
-                </>
-              );
-            }}
-          ></Tooltip>
-        </div>
-      </div>
-    );
+  const onSelectToken = (token) => {
+    const tmp = getTokenInfo(infoTokens, token.address);
+    setChartToken(tmp);
+    setToTokenAddress(swapOption, token.address);
   };
 
   const fromBalance = fromTokenInfo ? fromTokenInfo.balance : bigNumberify(0);
@@ -1859,7 +1838,7 @@ export default function SwapBox(props) {
           optionLabels={SWAP_LABELS}
           option={swapOption}
           onChange={onSwapOptionChange}
-          className="Exchange-swap-option-tabs"
+          className={"Exchange-swap-option-tabs " + (isLong ? "green-background-color" : "red-background-color")}
         />
         <div className="Exchange-swap-order-container">
           {flagOrdersEnabled && (
@@ -1874,6 +1853,14 @@ export default function SwapBox(props) {
           )}
         {showFromAndToSection && (
           <React.Fragment>
+            <ChartTokenSelector
+              chainId={chainId}
+              selectedToken={chartToken}
+              swapOption={swapOption}
+              infoTokens={infoTokens}
+              onSelectToken={onSelectToken}
+              className="chart-token-selector"
+            />
             <div className="Exchange-swap-section">
               <div className="Exchange-swap-section-top">
                 <div className="muted">
@@ -1918,11 +1905,6 @@ export default function SwapBox(props) {
                     showTokenImgInDropdown={true}
                   />
                 </div>
-              </div>
-            </div>
-            <div className="Exchange-swap-ball-container">
-              <div className="Exchange-swap-ball" onClick={switchTokens}>
-                <IoMdSwap className="Exchange-swap-ball-icon" />
               </div>
             </div>
             <div className="Exchange-swap-section">
@@ -2069,13 +2051,14 @@ export default function SwapBox(props) {
         {(isLong || isShort) && !isStopOrder && (
           <div className="Exchange-leverage-box">
             <div className="Exchange-leverage-slider-settings">
-              <Checkbox isChecked={isLeverageSliderEnabled} setIsChecked={setIsLeverageSliderEnabled}>
+              <Checkbox isChecked={isLeverageSliderEnabled} setIsChecked={setIsLeverageSliderEnabled}
+                        isLong={isLong}>
                 <span className="muted">Leverage slider</span>
               </Checkbox>
             </div>
-            {isLeverageSliderEnabled && (
+            {isLeverageSliderEnabled && isLong && (
               <div
-                className={cx("Exchange-leverage-slider", "App-slider", {
+                className={cx("Exchange-leverage-slider", "App-slider", "green", {
                   positive: isLong,
                   negative: isShort,
                 })}
@@ -2091,82 +2074,24 @@ export default function SwapBox(props) {
                 />
               </div>
             )}
-            {isShort && (
-              <div className="Exchange-info-row">
-                <div className="Exchange-info-label">
-                  <Trans>Collateral In</Trans>
-                </div>
-
-                <div className="align-right">
-                  <TokenSelector
-                    label={t`Collateral In`}
-                    chainId={chainId}
-                    tokenAddress={shortCollateralAddress}
-                    onSelectToken={onSelectShortCollateralAddress}
-                    tokens={stableTokens}
-                    showTokenImgInDropdown={true}
-                  />
-                </div>
+            {isLeverageSliderEnabled && isShort &&(
+              <div
+                className={cx("Exchange-leverage-slider", "App-slider", "red", {
+                  positive: isLong,
+                  negative: isShort,
+                })}
+              >
+                <Slider
+                  min={1.1}
+                  max={MAX_ALLOWED_LEVERAGE / BASIS_POINTS_DIVISOR}
+                  step={0.1}
+                  marks={leverageMarks}
+                  handle={leverageSliderHandle}
+                  onChange={(value) => setLeverageOption(value)}
+                  defaultValue={leverageOption}
+                />
               </div>
             )}
-            {isLong && (
-              <div className="Exchange-info-row">
-                <div className="Exchange-info-label">
-                  <Trans>Collateral In</Trans>
-                </div>
-                <div className="align-right">
-                  <Tooltip
-                    position="right-bottom"
-                    handle="USD"
-                    renderContent={() => (
-                      <span className="SwapBox-collateral-tooltip-text">
-                        <Trans>
-                          A snapshot of the USD value of your {existingPosition?.collateralToken?.symbol} collateral is
-                          taken when the position is opened.
-                        </Trans>
-                        <br />
-                        <br />
-                        <Trans>
-                          When closing the position, you can select which token you would like to receive the profits
-                          in.
-                        </Trans>
-                      </span>
-                    )}
-                  />
-                </div>
-              </div>
-            )}
-            <div className="Exchange-info-row">
-              <div className="Exchange-info-label">
-                <Trans>Leverage</Trans>
-              </div>
-              <div className="align-right">
-                {hasExistingPosition && toAmount && toAmount.gt(0) && (
-                  <div className="inline-block muted">
-                    {formatAmount(existingPosition.leverage, 4, 2)}x
-                    <BsArrowRight className="transition-arrow" />
-                  </div>
-                )}
-                {toAmount && leverage && leverage.gt(0) && `${formatAmount(leverage, 4, 2)}x`}
-                {!toAmount && leverage && leverage.gt(0) && `-`}
-                {leverage && leverage.eq(0) && `-`}
-              </div>
-            </div>
-            <div className="Exchange-info-row">
-              <div className="Exchange-info-label">
-                <Trans>Entry Price</Trans>
-              </div>
-              <div className="align-right">
-                {hasExistingPosition && toAmount && toAmount.gt(0) && (
-                  <div className="inline-block muted">
-                    ${formatAmount(existingPosition.averagePrice, USD_DECIMALS, 2, true)}
-                    <BsArrowRight className="transition-arrow" />
-                  </div>
-                )}
-                {nextAveragePrice && `$${formatAmount(nextAveragePrice, USD_DECIMALS, 2, true)}`}
-                {!nextAveragePrice && `-`}
-              </div>
-            </div>
             <div className="Exchange-info-row">
               <div className="Exchange-info-label">
                 <Trans>Liq. Price</Trans>
@@ -2243,203 +2168,7 @@ export default function SwapBox(props) {
         )}
         <div className="Exchange-swap-button-container">{renderPrimaryButton()}</div>
       </div>
-      {isSwap && (
-        <div className="Exchange-swap-market-box App-box App-box-border">
-          <div className="Exchange-swap-market-box-title">
-            <Trans>Swap</Trans>
-          </div>
-          <div className="App-card-divider"></div>
-          <div className="Exchange-info-row">
-            <div className="Exchange-info-label">
-              <Trans>{fromToken.symbol} Price</Trans>
-            </div>
-            <div className="align-right">
-              ${fromTokenInfo && formatAmount(fromTokenInfo.minPrice, USD_DECIMALS, 2, true)}
-            </div>
-          </div>
-          <div className="Exchange-info-row">
-            <div className="Exchange-info-label">
-              <Trans>{toToken.symbol} Price</Trans>
-            </div>
-            <div className="align-right">
-              ${toTokenInfo && formatAmount(toTokenInfo.maxPrice, USD_DECIMALS, 2, true)}
-            </div>
-          </div>
-          <div className="Exchange-info-row">
-            <div className="Exchange-info-label">
-              <Trans>Available Liquidity</Trans>
-            </div>
-
-            <div className="align-right al-swap">
-              <Tooltip
-                handle={`$${formatAmount(maxSwapAmountUsd, USD_DECIMALS, 2, true)}`}
-                position="right-bottom"
-                renderContent={() => {
-                  return (
-                    <div>
-                      <StatsTooltipRow
-                        label={t`Max ${fromTokenInfo.symbol} in`}
-                        value={[
-                          `${formatAmount(maxFromTokenIn, fromTokenInfo.decimals, 0, true)} ${fromTokenInfo.symbol}`,
-                          `($${formatAmount(maxFromTokenInUSD, USD_DECIMALS, 0, true)})`,
-                        ]}
-                      />
-                      <StatsTooltipRow
-                        label={t`Max ${toTokenInfo.symbol} out`}
-                        value={[
-                          `${formatAmount(maxToTokenOut, toTokenInfo.decimals, 0, true)} ${toTokenInfo.symbol}`,
-                          `($${formatAmount(maxToTokenOutUSD, USD_DECIMALS, 0, true)})`,
-                        ]}
-                      />
-                    </div>
-                  );
-                }}
-              />
-            </div>
-          </div>
-          {!isMarketOrder && (
-            <ExchangeInfoRow label={t`Price`}>
-              {getExchangeRateDisplay(getExchangeRate(fromTokenInfo, toTokenInfo), fromToken, toToken)}
-            </ExchangeInfoRow>
-          )}
-        </div>
-      )}
-      {(isLong || isShort) && (
-        <div className="Exchange-swap-market-box App-box App-box-border">
-          <div className="Exchange-swap-market-box-title">
-            {isLong ? t`Long` : t`Short`}&nbsp;{toToken.symbol}
-          </div>
-          <div className="App-card-divider" />
-          <div className="Exchange-info-row">
-            <div className="Exchange-info-label">
-              <Trans>Entry Price</Trans>
-            </div>
-            <div className="align-right">
-              <Tooltip
-                handle={`$${formatAmount(entryMarkPrice, USD_DECIMALS, 2, true)}`}
-                position="right-bottom"
-                renderContent={() => {
-                  return (
-                    <div>
-                      <Trans>
-                        The position will be opened at {formatAmount(entryMarkPrice, USD_DECIMALS, 2, true)} USD with a
-                        max slippage of {parseFloat(savedSlippageAmount / 100.0).toFixed(2)}%.
-                        <br />
-                        <br />
-                        The slippage amount can be configured under Settings, found by clicking on your address at the
-                        top right of the page after connecting your wallet.
-                        <br />
-                        <br />
-                        <ExternalLink href="https://gmxio.gitbook.io/gmx/trading#opening-a-position">
-                          More Info
-                        </ExternalLink>
-                      </Trans>
-                    </div>
-                  );
-                }}
-              />
-            </div>
-          </div>
-          <div className="Exchange-info-row">
-            <div className="Exchange-info-label">
-              <Trans>Exit Price</Trans>
-            </div>
-            <div className="align-right">
-              <Tooltip
-                handle={`$${formatAmount(exitMarkPrice, USD_DECIMALS, 2, true)}`}
-                position="right-bottom"
-                renderContent={() => {
-                  return (
-                    <div>
-                      <Trans>
-                        If you have an existing position, the position will be closed at{" "}
-                        {formatAmount(entryMarkPrice, USD_DECIMALS, 2, true)} USD.
-                        <br />
-                        <br />
-                        This exit price will change with the price of the asset.
-                        <br />
-                        <br />
-                        <ExternalLink href="https://gmxio.gitbook.io/gmx/trading#opening-a-position">
-                          More Info
-                        </ExternalLink>
-                      </Trans>
-                    </div>
-                  );
-                }}
-              />
-            </div>
-          </div>
-          <div className="Exchange-info-row">
-            <div className="Exchange-info-label">
-              <Trans>Borrow Fee</Trans>
-            </div>
-            <div className="align-right">
-              <Tooltip
-                handle={borrowFeeText}
-                position="right-bottom"
-                renderContent={() => {
-                  return (
-                    <div>
-                      {hasZeroBorrowFee && (
-                        <div>
-                          {isLong && t`There are more shorts than longs, borrow fees for longing is currently zero`}
-                          {isShort && t`There are more longs than shorts, borrow fees for shorting is currently zero`}
-                        </div>
-                      )}
-                      {!hasZeroBorrowFee && (
-                        <div>
-                          <Trans>
-                            The borrow fee is calculated as (assets borrowed) / (total assets in pool) * 0.01% per hour.
-                          </Trans>
-                          <br />
-                          <br />
-                          {isShort && t`You can change the "Collateral In" token above to find lower fees`}
-                        </div>
-                      )}
-                      <br />
-                      <ExternalLink href="https://gmxio.gitbook.io/gmx/trading#opening-a-position">
-                        <Trans>More Info</Trans>
-                      </ExternalLink>
-                    </div>
-                  );
-                }}
-              >
-                {!hasZeroBorrowFee && null}
-              </Tooltip>
-            </div>
-          </div>
-          {renderAvailableLongLiquidity()}
-          {isShort && toTokenInfo.hasMaxAvailableShort && (
-            <div className="Exchange-info-row">
-              <div className="Exchange-info-label">
-                <Trans>Available Liquidity</Trans>
-              </div>
-              <div className="align-right">
-                <Tooltip
-                  handle={`$${formatAmount(toTokenInfo.maxAvailableShort, USD_DECIMALS, 2, true)}`}
-                  position="right-bottom"
-                  renderContent={() => {
-                    return (
-                      <>
-                        <StatsTooltipRow
-                          label={t`Max ${toTokenInfo.symbol} short capacity`}
-                          value={formatAmount(toTokenInfo.maxGlobalShortSize, USD_DECIMALS, 0, true)}
-                        />
-                        <StatsTooltipRow
-                          label={t`Current ${toTokenInfo.symbol} shorts`}
-                          value={formatAmount(toTokenInfo.globalShortSize, USD_DECIMALS, 0, true)}
-                        />
-                      </>
-                    );
-                  }}
-                ></Tooltip>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
       </div>
-      <UsefulLinks className="Useful-links-swapbox" />
       <NoLiquidityErrorModal
         chainId={chainId}
         fromToken={fromToken}

@@ -60,6 +60,12 @@
   white-space: nowrap;
 }
 
+.Exchange-lists {
+  background: #141414;
+  border-radius: 24px;
+  padding: 1rem;
+}
+
 .Exchange-lists.large {
   display: block;
   margin-top: 2rem;
@@ -739,7 +745,7 @@ input.Exchange-swap-input.small {
 }
 
 .Exchange-swap-button-container {
-  padding-top: 0.31rem;
+  margin: 0.5rem 0 4rem 0;
 }
 
 .Exchange-swap-button {

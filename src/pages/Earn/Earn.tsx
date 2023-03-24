@@ -30,7 +30,6 @@ export default function Earn(props) {
           {menu === ROLP && <ROLPContent/>}
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }

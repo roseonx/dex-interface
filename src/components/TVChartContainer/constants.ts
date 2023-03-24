@@ -26,7 +26,7 @@ const chartOverrides = {
   "paneProperties.vertGridProperties.style": 2,
   "paneProperties.horzGridProperties.color": "rgba(35, 38, 59, 1)",
   "paneProperties.horzGridProperties.style": 2,
-  "mainSeriesProperties.priceLineColor": "#3a3e5e",
+  "mainSeriesProperties.priceLineColor": "#E252D9",
   "scalesProperties.textColor": "#fff",
   "scalesProperties.lineColor": "#16182e",
   ...chartStyleOverrides,

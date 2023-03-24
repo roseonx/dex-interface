@@ -12,7 +12,6 @@ export default function Vest(props) {
       <div className="Vest-right-container">
 
       </div>
-      <Footer/>
     </div>
   )
 }

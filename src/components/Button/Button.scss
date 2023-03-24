@@ -12,7 +12,7 @@
   &.primary {
     background: var(--primary-btn-bg);
     color: #fff;
-    border-radius: 0.3rem;
+    border-radius: 100px;
     padding: 1.65rem 1.6rem;
     line-height: 1;
 
@@ -26,9 +26,9 @@
   }
 
   &.primary-action {
-    background: linear-gradient(90deg, #2d42fc, #2e3dcd);
+    background: linear-gradient(98.6deg, #5144EB 0%, #E252D9 100%);
     color: #fff;
-    border-radius: 0.3rem;
+    border-radius: 10rem;
     padding: 1.65rem 1.6rem;
     line-height: 1;
 

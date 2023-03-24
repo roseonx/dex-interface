@@ -3,7 +3,6 @@
 }
 
 .Exchange-swap-option-tabs {
-  background: #23E2A0 !important;
   border-radius: 100px !important;
   padding: 1rem;
 }
@@ -44,30 +43,33 @@
 }
 
 .Exchange-swap-order-container .Exchange-swap-order-type-tabs .Tab-option {
-  padding:0 2rem;
+  padding:0 2rem 1rem 2rem;
 }
 
 .Exchange-swap-order-container .Exchange-swap-order-type-tabs .Tab-option.active {
   border-bottom: 1px solid rebeccapurple;
 }
 
-.Exchange-swap-section-wrapper {
-  padding: 1px;
-  border-radius: 2.5rem;
-  background: linear-gradient(to left, #867EEB, #E78DE1);
-  margin-bottom: 1rem;
+.Exchange-swap-order-container .Exchange-swap-section {
+  margin:1rem 0;
 }
 
-.Exchange-leverage-box .Checkbox .Checkbox-icon {
-  color: #23E2A0;
-}
-
-.Exchange-leverage-slider .rc-slider .rc-slider-step .rc-slider-dot-active,
-.Exchange-leverage-slider .rc-slider .rc-slider-track {
+.Exchange-leverage-slider.green .rc-slider .rc-slider-step .rc-slider-dot-active,
+.Exchange-leverage-slider.green .rc-slider .rc-slider-track {
   background-color: #23E2A0;
   background-image: none;
 }
 
-.Exchange-leverage-slider .rc-slider .rc-slider-handle {
+.Exchange-leverage-slider.green .rc-slider .rc-slider-handle {
   border-color: #23E2A0;
+}
+
+.Exchange-leverage-slider.red .rc-slider .rc-slider-step .rc-slider-dot-active,
+.Exchange-leverage-slider.red .rc-slider .rc-slider-track {
+  background-color: #EB6C6C;
+  background-image: none;
+}
+
+.Exchange-leverage-slider.red .rc-slider .rc-slider-handle {
+  border-color: #EB6C6C;
 }

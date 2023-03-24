@@ -54,9 +54,9 @@ input {
   --dark-blue: #17182c;
   --dark-blue-bg: #000000;
   --dark-blue-accent: #a0a3c4;
-  --primary-btn-bg: #2d42fc;
-  --primary-btn-hover: #4f60fc;
-  --primary-btn-active: #5f6ffd;
+  --primary-btn-bg: linear-gradient(98.6deg, #5144EB 0%, #E252D9 100%);
+  --primary-btn-hover: linear-gradient(98.6deg, #7D75E9 0%, #E78DE1 100%);;
+  --primary-btn-active: linear-gradient(98.6deg, #5144EB 0%, #E252D9 100%);
   --dark-blue-hover: #808aff14;
   --dark-blue-border: #ffffff29;
   --dark-blue-active: #818cef33;
@@ -454,4 +454,28 @@ button.btn-link:hover .logout-icon {
 }
 .overflow-auto {
   overflow: auto;
+}
+
+.green-background-color {
+  background: #23E2A0 !important;
+}
+
+.red-background-color {
+  background: #EB6C6C !important;
+}
+
+.green-color {
+  color: #23E2A0 !important;
+}
+
+.red-color {
+  color: #EB6C6C !important;
+}
+
+.green-border-color {
+  border-color: #23E2A0 !important;
+}
+
+.red-border-color {
+  border-color: #EB6C6C !important;
 }

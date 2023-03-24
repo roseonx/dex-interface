@@ -1,6 +1,5 @@
 .Footer-wrapper {
   text-align: center;
-  padding-top: 4rem;
   background: #16182e;
   width: 100vw;
   position: absolute;
@@ -19,14 +18,13 @@
 }
 
 .Footer-logo img {
-  height: 2.65rem;
+  height: 8rem;
 }
 
 .Footer-social-link-block {
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  margin-bottom: 2.4rem;
 }
 .Footer-link {
   color: #a0a3c4;

@@ -646,6 +646,7 @@ table.Exchange-list th {
   border-radius: 2.5rem;
   position: relative;
   background: #000;
+  border: 1px solid #383838;
 }
 
 

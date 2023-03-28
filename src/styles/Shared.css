@@ -400,10 +400,10 @@ button.btn-link:hover .logout-icon {
 }
 
 .page-layout {
-  min-height: calc(100vh - 62px);
+  min-height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
-  padding-bottom: calc(4.65rem + 20rem);
+  padding-bottom: 2rem;
   padding-top: 4.65rem;
 }
 

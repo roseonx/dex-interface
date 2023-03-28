@@ -60,6 +60,8 @@ import WETH from "abis/WETH.json";
 
 import longImg from "img/sun-flower.png";
 import shortImg from "img/orchid.png";
+import longDisableImg from "img/sun-flower-disable.png";
+import shortDisableImg from "img/orchid-disable.png";
 import swapImg from "img/swap.svg";
 
 import { useUserReferralCode } from "domain/referrals";
@@ -88,6 +90,8 @@ import { get1InchSwapUrl } from "config/links";
 const SWAP_ICONS = {
   [LONG]: longImg,
   [SHORT]: shortImg,
+  "Long-disable": longDisableImg,
+  "Short-disable": shortDisableImg,
   [SWAP]: swapImg,
 };
 

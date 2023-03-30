@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import "./Vest.css";
-import Footer from "../../components/Footer/Footer";
 import VestClaim from "../../components/Vest/VestClaim";
+import DepositWithdraw from "../../components/Vest/DepositWithdraw";
 
 export default function Vest(props) {
   return (
@@ -10,7 +10,7 @@ export default function Vest(props) {
         <VestClaim/>
       </div>
       <div className="Vest-right-container">
-
+        <DepositWithdraw/>
       </div>
     </div>
   )

@@ -320,6 +320,17 @@
   .App-header-link-main img.small {
     display: inline-block;
   }
+  .App-header-network .network-dropdown{
+    padding: 0 !important;
+  }
+
+  .App-header-network .network-dropdown .dropdown-button {
+    display: none;
+  }
+
+  .App-header-network .network-dropdown .network-dropdown-separator {
+    display: none;
+  }
 }
 
 @media (max-width: 450px) {

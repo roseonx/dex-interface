@@ -89,8 +89,8 @@ function NavIcons({ selectorLabel }) {
         <img className="network-dropdown-icon" src={icon} alt={selectorLabel} />
         <span className="network-dropdown-selector-label">{selectorLabel}</span>
       </button>
-      <div className="network-dropdown-seperator" />
-      <button className="transparent">
+      <div className="network-dropdown-separator" />
+      <button className="transparent dropdown-button">
         <RiArrowDownSLine color="white" size={24} />
       </button>
     </>

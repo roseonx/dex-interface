@@ -1,6 +1,38 @@
+.Vest {
+  margin: auto;
+  width: 80%;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .Vest .Vest-left-container {
-  width: 50%;
+  width: 55rem;
 }
 .Vest .Vest-right-container {
-  width: 50%;
+  width: 55rem;
+  margin-left: 10rem;
+}
+
+@media only screen and (max-width: 700px) {
+  .Vest .Vest-left-container {
+    width: 30rem;
+  }
+  .Vest .Vest-right-container {
+    width: 30rem;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .Vest {
+    flex-direction: column;
+    padding-top: 2rem;
+  }
+
+  .Vest .Vest-left-container {
+    margin: auto;
+  }
+
+  .Vest .Vest-right-container {
+    margin: 2rem auto;
+  }
 }

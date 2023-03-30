@@ -1,0 +1,20 @@
+.DepositWithdraw-option {
+  background: linear-gradient(98.6deg, #7D75E9 0%, #E78DE1 100%) !important;
+  border-radius: 100px !important;
+  padding: 2rem;
+}
+
+.DepositWithdraw-option .Tab-option {
+  background: black;
+  color: #898989;
+  font-size: 1.75rem;
+  font-weight: 700;
+  border-radius: 100px;
+  opacity: 1;
+  margin: 0 1rem;
+}
+
+.DepositWithdraw-option .Tab-option.active {
+  background: white !important;
+  color: black !important;
+}
